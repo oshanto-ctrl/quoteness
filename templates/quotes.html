@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Quote section-->
+ <section class="quote-section">
+    <!-- Div: Quote box -->
+     <div class="quote-box">
+        <div class="quote" id="quoteText"> {{ quoteText }}</div>
+        <div class="author" id="author">{{ author }}</div>
+     </div>
+
+     <!-- Button Form: Positive/Negative -->
+      <form method="POST" class="feedback-form">
+        <input class="positive-btn" type="submit" name="quote_type" value="positive">
+        <input class="negative-btn" type="submit" name="quote_type" value="negative">
+      </form>
+
+      <!-- Share Option buttons -->
+       <div class="share-buttons">
+            <button onclick="shareTo('facebook')">facebook</button>
+            <button onclick="shareTo('whatsapp')">WhatsApp</button>
+            <button onclick="shareTo('messenger')">Messenger</button>
+            <button onclick="copyLink()">Copy Link</button>
+       </div>
+ </section>
+
+<!-- Script Section -->
+<script>
+    // Sharing to online platform and copy function 
+    function shareTo(platform) {
+        const text = encodeURIComponent(document.getElementById('quoteText').innerText);
+        const author = encodeURIComponent(document.getElementById('author').innerText);
+        const url = window.location.href;
+        
+        let shareURL = "";
+
+        switch(platform) {
+            case 'facebook':
+                shareURL = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                break;
+            
+            case 'whatsapp':
+                shareURL = `https://api.whatsapp.com/send?text=${text} ${author}`;
+                break;
+            
+            case 'messenger': 
+                shareURL = `fb-messenger://share//?link=${url}`;
+                break;
+        }   
+
+        window.open(shareURL, '_blank');
+    
+    }
+
+    // Function to copy the link to share customly
+    function copyLink(){
+        navigator.clipboard.writeText(window.location.herf)
+        .then(() => alert('Link Copied'))
+        .catch(err => alert('Failed to copy link.'));
+        
+    }
+</script>
+
+{% endblock %}

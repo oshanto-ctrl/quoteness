@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quoteness</title>
+    <!-- CSS Link -->
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    
+    <!-- Header Starts -->
+     <header>
+     <!--Div:  Nav Container -->
+        <div class="nav-container">
+            <!-- Div: Logo -->
+            <div class="logo">
+                Quoteness
+            </div>
+            <!-- Div: Nav-Links -->
+             <nav id="nav-links">
+                <a href="#">Login</a>
+                <a href="#">Logout</a>
+             </nav>
+             <!-- Sandwich button for toggle -->
+              <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        </div>
+
+    </header>
+    <!-- Header Ends-->
+
+    <!-- Main Section -->
+     <main>
+        {% block content %}
+        {% endblock %}
+     </main>
+
+     <!-- Script Section -->
+     <script>
+        // Toogle Menu Function
+        function toggleMenu(){
+            document.getElementById('nav-links').classList.toggle('show')
+        }
+
+        // Prevention of quote copying directly
+        document.addEventListener('DOMContentLoaded', () => {
+            const quote = document.getElementById('quoteText');
+            quote.addEventListener('copy', e => {
+                e.preventDefault();
+                alert('Copying quotes is disabled by system.')
+            });
+        });
+     </script>
+
+</body>
+</html>
